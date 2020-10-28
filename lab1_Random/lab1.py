@@ -42,10 +42,10 @@ def start():
     plt.ylabel("amount")
     plt.xlabel("generated number")
 
-    a = PRNG_table.Table("even_table.txt")
+    a = PRNG_table.MyTableMethod("generated.txt")
     graph(start, stop, n, a.next)    
     
-    #graph(start, stop, n, randint) # [)
+    #graph(start, stop, n, randint) # []
     #graph(start, stop, n, np.random.randint)
 
     #b = PRNG_algo.LinearCongruent()

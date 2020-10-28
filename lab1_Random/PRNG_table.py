@@ -1,7 +1,19 @@
 from time import time
+from random import randint
+        
+
+def generate_random_file(filename, n = 7919):
+    numbers = ""
+
+    for i in range(n):
+        numbers += str(randint(0, 9))
+
+    f = open(filename, "w")
+    f.write(numbers)
+    f.close()
 
 
-class Table:
+class MyTableMethod:
 
     _randomDigits = ""
     _len = 0
@@ -15,31 +27,35 @@ class Table:
 
         self._len = len(self._randomDigits)
 
-    # [lower; upper)
+    # [lower; upper]
     def next(self, lower, upper):
-
-        rand_2_dig_number = (time() * 100000) % 1000
-
-        start = int(rand_2_dig_number // 10)
-        step = int(rand_2_dig_number % 10)
-
-        upper -= lower
+        upper -= lower - 1
         n_digit_to_gen = len(str(upper)) + 1
         
         random_number = ""
-        self.__upd_cur_index_mod_len(start)
+        self.__upd_cur_index_mod_len(self.__get_1_time_dependent_number())
+
         for i in range(n_digit_to_gen):
             random_number += self._randomDigits[self._cur_index]
-            self.__upd_cur_index_mod_len(step)
-        
+            self.__upd_cur_index_mod_len(self.__get_1_time_dependent_number())
+
         return (int(random_number) % upper) + lower
+
 
     def __upd_cur_index_mod_len(self, step):
         self._cur_index += step
         self._cur_index %= self._len
 
 
-if __name__ == "__main__":
-    a = Table("odd_table.txt")
-    for i in range(100):
-        print(a.next(100, 125))
+    def __get_2_time_dependent_numbers(self):
+        rand_number = (time() * 1000) % 1000
+
+        start = int(rand_number // 10)
+        step = int(rand_number % 10) + 1
+        
+        return start, step
+
+
+    def __get_1_time_dependent_number(self):
+            rand_number = time() * 1000
+            return int(rand_number % 10) + 1
