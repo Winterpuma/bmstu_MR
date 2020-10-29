@@ -21,13 +21,14 @@ a = MiddleSquares(3485)
 
 # Линейный конгруэнтный метод
 class LinearCongruent:
-    m = 6075
     a = 106
     c = 1283
     _cur = 7
 
-    def next(self):
-        self._cur = (self.a * self._cur + self.c) % self.m
+    def next(self, start, stop):
+        stop += 1
+        m = stop - start
+        self._cur = (self.a * self._cur + self.c) % m + start
         return self._cur
 
     
@@ -46,9 +47,10 @@ class LFSR:
         self.__init_buffer()
  
  
-    def next(self):
+    def next(self, start, stop):
+        m = stop - start
         self.__shift_bits()
-        return self.__convert_to_int()
+        return self.__convert_to_int() % m + start
  
  
     def __shift_bits(self):
