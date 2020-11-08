@@ -17,10 +17,10 @@ def convert_matrix_to_nx_form(matr):
 def graph(matr):
     DG = nx.DiGraph()
     DG.add_weighted_edges_from(convert_matrix_to_nx_form(matr))
-    pos=nx.planar_layout(DG)
+    pos = nx.circular_layout(DG)
     nx.draw(DG, pos, with_labels=True)
     labels = nx.get_edge_attributes(DG, 'weight')
-    nx.draw_networkx_edge_labels(DG, pos, edge_labels=labels, label_pos=0.3)
+    nx.draw_networkx_edge_labels(DG, pos, edge_labels=labels, label_pos=0.2)
     plt.show()
 
 
